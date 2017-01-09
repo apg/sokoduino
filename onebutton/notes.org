@@ -5,8 +5,8 @@
 
 See Fritzing sketch. It's basically the [[https://www.arduino.cc/en/tutorial/button][Arduino Button]] example. I used
 a different resistor than the recommended 10K Ohm one, but that's largely
-because I quite understand how the bands work, nor do I know if I have a
-10K Ohm one the parts I've got.
+because I don't quite understand how the bands work, nor do I know if I have a
+10K Ohm one in the parts I've got.
 
 Will definitely order 10K Ohm resistors for the multiple button stuff.
 
