@@ -1,0 +1,50 @@
+#+Title: Notes on onebutton
+
+* [2017-01-08 Sun]
+** Initial wiring is working.
+
+See Fritzing sketch. It's basically the [[https://www.arduino.cc/en/tutorial/button][Arduino Button]] example. I used
+a different resistor than the recommended 10K Ohm one, but that's largely
+because I quite understand how the bands work, nor do I know if I have a
+10K Ohm one the parts I've got.
+
+Will definitely order 10K Ohm resistors for the multiple button stuff.
+
+** Code sketch works, using.
+
+   #+begin_src: c
+   if (digitalRead(BUTTON_PIN) == HIGH) {
+     return ' ';
+   }
+   #+end_src
+
+Pushing the button, *does* reset the game with a new level. But, it
+cycles through the available levels a bunch. I assume that this is 
+because it's not being "debounced" properly. I think I'm using the
+right term.
+
+There's probably a million ways in which to "debounce," and I've seen
+a few that are based on using the ~millis()~ function to do some
+timing tricks.
+
+I wonder, though, if I can simply do the following:
+
+   #+begin_src: c
+   int pressed = 0;
+   int readset = 0;
+   void 
+   loop() {
+     readset <<= 1;
+     if (digitalRead(BUTTON_PIN) == HIGH) {
+       /* record a high reading */
+       readset |= 1; 
+     }
+    
+     pressed = (popcount(readset) > THRESHOLD) ? 1: 0;
+     if (pressed) {
+       readset = 0;
+     }
+ 
+     /* do something with pressed */
+   }
+   #+end_src
