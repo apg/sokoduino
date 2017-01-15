@@ -48,3 +48,8 @@ I wonder, though, if I can simply do the following:
      /* do something with pressed */
    }
    #+end_src
+
+Update [2017-01-14 Sat], this doesn't work. We zoom through 8 bits too
+quickly. I think instead I'll call millis() and just wait 50ms before
+allowing the next button press. (This worked.)
+

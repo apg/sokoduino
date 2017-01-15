@@ -49,6 +49,7 @@ struct game {
   char y;
 };
 
+unsigned long button1read;
 struct game game;
 
 struct game games[NUM_LEVELS] = {
@@ -213,9 +214,15 @@ next() {
 
   // Read the button, and return ' ' to *switch* board.
   if (digitalRead(BUTTON_PIN) == HIGH) {
-    return ' ';
+    if ((button1read > 0) && (millis() - button1read) > 50) {
+      button1read = 0;
+      return ' ';
+    }
+    else {
+      button1read = millis();
+    }
   }
-  
+
   return 0;
 }
 
@@ -227,6 +234,7 @@ setup() {
   while (!Serial);
   
   gamei = 0;
+  button1read = 0;
   newgame(gamei);
   draw();
 }
